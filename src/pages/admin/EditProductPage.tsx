@@ -1,7 +1,7 @@
 // src/pages/admin/EditProductPage.tsx
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -33,7 +33,7 @@ export default function EditProductPage() {
 
   // 2. Setup Form
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(productSchema) as any,
   });
 
   // Pre-fill form when product data loads
@@ -75,7 +75,7 @@ export default function EditProductPage() {
     }
   });
 
-  const onSubmit = (data: ProductFormData) => {
+  const onSubmit: SubmitHandler<ProductFormData> = (data) => {
     updateMutation.mutate(data);
   };
 

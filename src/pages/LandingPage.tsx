@@ -1,13 +1,13 @@
 // src/pages/LandingPage.tsx
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { 
   Search, 
   ShoppingCart, 
   Bell, 
   ArrowRight, 
-  Devices, 
+  Monitor, 
   Check, 
   Armchair, 
   Heart, 
@@ -29,7 +29,7 @@ export default function LandingPage() {
 
   const categories = [
     {
-      icon: Devices,
+      icon: Monitor,
       title: "Electronics",
       description: "Smart devices and high-fidelity audio.",
       link: "/products?search=electronics"
