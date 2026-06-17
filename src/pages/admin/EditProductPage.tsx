@@ -12,8 +12,8 @@ import { ArrowLeft, Package, Loader2, CheckCircle, Trash2 } from 'lucide-react';
 // Zod schema matching backend class-validator rules
 const productSchema = z.object({
   name: z.string().min(3, 'Product name must be at least 3 characters'),
-  price: z.coerce.number().min(0, 'Price must be 0 or greater'),
-  stock: z.coerce.number().int().min(0, 'Stock must be a whole number 0 or greater').optional(),
+  price: z.number().min(0, 'Price must be 0 or greater'),
+  stock: z.number().int().min(0, 'Stock must be a whole number 0 or greater').optional(),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -33,7 +33,7 @@ export default function EditProductPage() {
 
   // 2. Setup Form
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema) as any,
+    resolver: zodResolver(productSchema),
   });
 
   // Pre-fill form when product data loads

@@ -2,15 +2,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { useEffect } from 'react';
-import { 
-  Search, 
-  ShoppingCart, 
-  Bell, 
-  ArrowRight, 
-  Monitor, 
-  Check, 
-  Armchair, 
-  Heart, 
+import {
+  Search,
+  ShoppingCart,
+  Bell,
+  ArrowRight,
+  Monitor,
+  Check,
+  Armchair,
+  Heart,
   Plus,
   Mail
 } from 'lucide-react';
