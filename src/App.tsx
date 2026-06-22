@@ -60,14 +60,6 @@ function PublicLayout() {
   );
 }
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading } = useAuthStore();
-  
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-  
-  return <>{children}</>;
-}
 
 function App() {
   const checkAuth = useAuthStore((state) => state.checkAuth);
