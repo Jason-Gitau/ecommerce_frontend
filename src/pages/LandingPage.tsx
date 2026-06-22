@@ -106,7 +106,7 @@ export default function LandingPage() {
           </button>
 
           {/* Cart */}
-          <Link to="/cart" className="p-3 rounded-full bg-background shadow-[6px_6px_12px_#D1D9E6,-6px_-6px_12px_#FFFFFF] hover:shadow-[10px_10px_20px_#D1D9E6,-10px_-10px_20px_#FFFFFF] hover:-translate-y-0.5 active:shadow-[inset_4px_4px_8px_#D1D9E6,inset_-4px_-4px_8px_#FFFFFF] active:translate-y-px text-on-surface-variant hover:text-primary transition-all duration-300">
+          <Link to="/products" className="p-3 rounded-full bg-background shadow-[6px_6px_12px_#D1D9E6,-6px_-6px_12px_#FFFFFF] hover:shadow-[10px_10px_20px_#D1D9E6,-10px_-10px_20px_#FFFFFF] hover:-translate-y-0.5 active:shadow-[inset_4px_4px_8px_#D1D9E6,inset_-4px_-4px_8px_#FFFFFF] active:translate-y-px text-on-surface-variant hover:text-primary transition-all duration-300">
             <ShoppingCart className="w-5 h-5" />
           </Link>
 

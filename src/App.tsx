@@ -50,6 +50,16 @@ function AdminRoute() {
   return <AdminLayout />;
 }
 
+// This layout is for pages anyone can see (Storefront, Cart)
+function PublicLayout() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <Outlet /> {/* This renders the child routes like ProductsPage */}
+    </div>
+  );
+}
+
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuthStore();
   
@@ -82,15 +92,19 @@ function App() {
       <Route path="/verify-email" element={<VerifyEmailPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+        {/* PUBLIC CUSTOMER ROUTES (No login required) */}
+      <Route element={<PublicLayout />}>
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:id" element={<ProductDetailsPage />} />
+       <Route path="/cart" element={<CartPage />} />
+      </Route>
       
 
       {/* Protected Routes (With Navbar) */}
       <Route element={<ProtectedLayout />}>
-        <Route path="/products" element={<ProtectedRoute><ProductsPage /></ProtectedRoute>} />
-        <Route path="/products/:id" element={<ProductDetailsPage />} />
         <Route path="/orders" element={<MyOrdersPage />} />
         <Route path="/orders/:id" element={<OrderDetailsPage />} />
-        <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<div className="p-8">Checkout Page (Coming Next!)</div>} />
       </Route>
 

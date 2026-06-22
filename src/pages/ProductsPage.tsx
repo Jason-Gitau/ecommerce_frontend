@@ -68,88 +68,92 @@ export default function ProductsPage() {
   const pagination = data?.meta?.pagination;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header & Filters */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Our Products</h1>
-          
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
+      <div className="max-w-7xl mx-auto px-4 md:px-20 py-12">
+        <h1 className="font-hister text-hister text-on-surface mb-8">Our Products</h1>
+
+        <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 mb-12">
+          <div className="relative flex items-center flex-1 h-12 rounded-full bg-background shadow-[inset_4px_4px_8px_#D1D9E6,inset_-4px_-4px_8px_#FFFFFF] overflow-hidden">
             <input
               type="text"
               placeholder="Search products..."
               value={searchQuery}
-              onChange={(e) => setSearchParams(prev => { 
-                prev.set('search', e.target.value); 
-                prev.set('page', '1'); // Reset to page 1 on new search
-                return prev; 
+              onChange={(e) => setSearchParams(prev => {
+                prev.set('search', e.target.value);
+                prev.set('page', '1');
+                return prev;
               })}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full h-full bg-transparent border-none px-4 text-body-md text-on-surface placeholder:text-outline focus:ring-0 focus:outline-none"
             />
-            
-            <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer hover:bg-gray-50">
-              <input
-                type="checkbox"
-                checked={inStockOnly}
-                onChange={(e) => setSearchParams(prev => {
-                  prev.set('inStock', String(e.target.checked));
-                  prev.set('page', '1');
-                  return prev;
-                })}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <span className="text-sm text-gray-700">In Stock Only</span>
-            </label>
+          </div>
 
-            <button 
-              type="submit" 
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium"
-            >
-              Apply Filters
-            </button>
-          </form>
-        </div>
+          <label className="flex items-center space-x-2 px-4 py-3 rounded-full bg-background shadow-[6px_6px_12px_#D1D9E6,-6px_-6px_12px_#FFFFFF] hover:shadow-[10px_10px_20px_#D1D9E6,-10px_-10px_20px_#FFFFFF] cursor-pointer transition-all duration-300">
+            <input
+              type="checkbox"
+              checked={inStockOnly}
+              onChange={(e) => setSearchParams(prev => {
+                prev.set('inStock', String(e.target.checked));
+                prev.set('page', '1');
+                return prev;
+              })}
+              className="h-4 w-4 text-primary focus:ring-primary border-outline-variant rounded"
+            />
+            <span className="text-sm font-medium text-on-surface">In Stock Only</span>
+          </label>
+
+          <button
+            type="submit"
+            className="px-6 py-3 bg-primary-container text-on-primary-container rounded-full font-medium shadow-[6px_6px_12px_#D1D9E6,-6px_-6px_12px_#FFFFFF] hover:shadow-[10px_10px_20px_#D1D9E6,-10px_-10px_20px_#FFFFFF] active:shadow-[inset_4px_4px_8px_#D1D9E6,inset_-4px_-4px_8px_#FFFFFF] active:translate-y-px transition-all duration-300"
+          >
+            Apply Filters
+          </button>
+        </form>
       </div>
 
       {/* Product Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-20 pb-12">
         {products.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
-            No products found matching your criteria.
+          <div className="text-center py-12">
+            <p className="font-body-lg text-body-lg text-on-surface-variant">No products found matching your criteria.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((product: Product) => (
-              <div key={product.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                {/* Placeholder for Product Image */}
-                <div className="h-48 bg-gray-200 flex items-center justify-center text-gray-400">
-                  [Product Image]
+              <div
+                key={product.id}
+                className="rounded-[2rem] bg-background p-6 shadow-[6px_6px_12px_#D1D9E6,-6px_-6px_12px_#FFFFFF] hover:shadow-[10px_10px_20px_#D1D9E6,-10px_-10px_20px_#FFFFFF] transition-all duration-300 flex flex-col gap-4"
+              >
+                {/* Product Image */}
+                <div className="w-full aspect-square rounded-xl bg-background shadow-[inset_4px_4px_8px_#D1D9E6,inset_-4px_-4px_8px_#FFFFFF] flex items-center justify-center">
+                  <div className="text-on-surface-variant font-medium">[Product Image]</div>
                 </div>
-                
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-900 truncate">{product.name}</h3>
-                  <div className="mt-2 flex items-center justify-between">
-                    <span className="text-xl font-bold text-gray-900">${Number(product.price).toFixed(2)}</span>
-                    <span className={`text-sm px-2 py-1 rounded-full ${product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+
+                <div className="flex-1 flex flex-col gap-3">
+                  <h3 className="font-medium text-body-lg text-on-surface truncate">{product.name}</h3>
+
+                  <div className="flex items-center justify-between">
+                    <span className="font-pastin text-pastin text-on-surface">${Number(product.price).toFixed(2)}</span>
+                    <span className={`text-xs font-bold px-3 py-1 rounded-full ${product.stock > 0 ? 'bg-success/20 text-success' : 'bg-error/20 text-error'}`}>
                       {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
                     </span>
                   </div>
-                  
-                  <div className="mt-4 flex gap-2">
-                    <button 
+
+                  <div className="flex gap-2 mt-2">
+                    <button
                       disabled={product.stock === 0}
                       onClick={() => addToCart(product)}
-                      className="flex-1 flex items-center justify-center space-x-2 py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                      className="flex-1 flex items-center justify-center space-x-2 py-3 px-4 bg-primary-container text-on-primary-container rounded-full font-medium shadow-[6px_6px_12px_#D1D9E6,-6px_-6px_12px_#FFFFFF] hover:shadow-[10px_10px_20px_#D1D9E6,-10px_-10px_20px_#FFFFFF] active:shadow-[inset_4px_4px_8px_#D1D9E6,inset_-4px_-4px_8px_#FFFFFF] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                     >
                       <ShoppingCart className="w-4 h-4" />
-                      <span>Add to Cart</span>
+                      <span className="hidden sm:inline">Add</span>
                     </button>
 
                     {/* Admin-only Edit Button */}
                     {user?.role === 'ADMIN' && (
                       <button
                         onClick={() => navigate(`/admin/products/${product.id}/edit`)}
-                        className="p-2 border border-gray-300 rounded-md hover:bg-gray-50 text-gray-600 transition-colors"
+                        className="p-3 bg-background shadow-[6px_6px_12px_#D1D9E6,-6px_-6px_12px_#FFFFFF] hover:shadow-[10px_10px_20px_#D1D9E6,-10px_-10px_20px_#FFFFFF] rounded-full text-on-surface-variant hover:text-primary transition-all duration-300"
                         title="Edit Product"
                       >
                         <Edit className="w-5 h-5" />
@@ -164,11 +168,13 @@ export default function ProductsPage() {
 
         {/* Pagination */}
         {pagination && (
-          <Pagination 
-            currentPage={pagination.page} 
-            totalPages={pagination.totalPages} 
-            onPageChange={handlePageChange} 
-          />
+          <div className="mt-12">
+            <Pagination
+              currentPage={pagination.page}
+              totalPages={pagination.totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
         )}
       </div>
     </div>
